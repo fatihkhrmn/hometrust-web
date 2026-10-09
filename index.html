@@ -3,205 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomeTrust AI | Real Estate & Renovation Intelligence</title>
+    <title>HomeTrust AI | The Real Estate Intelligence Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        primary: '#0f172a',    /* Slate 900 */
-                        secondary: '#3b82f6',  /* Blue 500 */
-                        accent: '#f8fafc',     /* Slate 50 */
+                        background: '#030712', /* Ultra dark slate */
+                        surface: '#111827',
+                        surfaceLight: '#1f2937',
+                        primary: '#3b82f6',
+                        glow: '#60a5fa',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
                     }
                 }
             }
         }
     </script>
+    <style>
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bento-card {
+            background: linear-gradient(145deg, #111827 0%, #030712 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+        }
+        .bento-card:hover {
+            border-color: rgba(96, 165, 250, 0.3);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
-<body class="bg-white text-slate-800 font-sans antialiased selection:bg-secondary selection:text-white">
-    
+<body class="bg-background text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-primary selection:text-white">
+
+    <!-- Ambient Background Glows -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/20 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-96 h-96 bg-emerald-500/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[500px] h-[500px] bg-indigo-500/10 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-4000"></div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+    <nav class="relative z-50 border-b border-white/5 bg-background/50 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <div class="bg-primary text-white p-2.5 rounded-xl shadow-lg shadow-slate-200">
-                    <i class="fa-solid fa-building-shield"></i>
-                </div>
-                <span class="text-2xl font-bold text-primary tracking-tight">HomeTrust <span class="text-secondary font-semibold">AI</span></span>
+                <i class="fa-solid fa-building-shield text-primary text-2xl"></i>
+                <span class="text-xl font-bold text-white tracking-tight">HomeTrust <span class="font-normal opacity-70">AI</span></span>
             </div>
-            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600">
-                <a href="#features" class="hover:text-primary transition">Platform</a>
-                <a href="#about" class="hover:text-primary transition">Company</a>
-                <a href="#waitlist" class="bg-primary text-white px-6 py-2.5 rounded-full hover:bg-slate-800 transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5">Request Access</a>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#platform" class="text-slate-400 hover:text-white transition">Platform</a>
+                <a href="#engineering" class="text-slate-400 hover:text-white transition">Engineering</a>
+                <a href="#waitlist" class="bg-white text-background px-5 py-2 rounded-lg hover:bg-slate-200 transition font-semibold shadow-[0_0_15px_rgba(255,255,255,0.2)]">Join Beta</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-accent pt-20 pb-32">
-        <div class="absolute inset-0 z-0">
-            <!-- Subtle background grid -->
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=10')] bg-cover bg-center opacity-5"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-accent"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-16">
-            <div class="md:w-1/2">
-                <div class="inline-flex items-center space-x-2 bg-white px-4 py-1.5 rounded-full text-sm font-semibold mb-8 border border-slate-200 shadow-sm">
-                    <span class="relative flex h-2.5 w-2.5">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
-                    </span>
-                    <span class="text-slate-700">Enterprise AI for Everyday People</span>
-                </div>
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-primary mb-6 leading-[1.1] tracking-tight">
-                    Real Estate without the <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">blind spots.</span>
-                </h1>
-                <p class="text-lg md:text-xl text-slate-600 mb-10 leading-relaxed max-w-xl">
-                    Your personal AI advocate. We decode predatory rental contracts, analyze messy renovation quotes, and simplify local zoning laws instantly.
-                </p>
-                
-                <form id="waitlist" class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 max-w-lg">
-                    <input type="email" placeholder="Enter your email address" class="flex-1 bg-white border border-slate-300 text-slate-800 px-5 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent shadow-sm" required>
-                    <button type="submit" class="bg-primary hover:bg-slate-800 text-white font-semibold px-8 py-4 rounded-xl transition shadow-lg shadow-slate-900/20 whitespace-nowrap">
-                        Join Waitlist
-                    </button>
-                </form>
-            </div>
-            
-            <div class="md:w-1/2 relative w-full">
-                <!-- Hero Image with floating elements -->
-                <div class="relative rounded-3xl overflow-hidden shadow-2xl shadow-slate-300/50 border border-slate-100">
-                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Modern Luxury Home" class="w-full h-full object-cover aspect-[4/3] transform hover:scale-105 transition duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
-                </div>
-                <!-- Floating UI Card -->
-                <div class="absolute -bottom-8 -left-8 bg-white p-5 rounded-2xl shadow-xl border border-slate-100 animate-bounce" style="animation-duration: 4s;">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                            <i class="fa-solid fa-check text-emerald-600 text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Contract Audit</p>
-                            <p class="text-sm font-bold text-slate-800">No hidden fees detected.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Professional Features Section (Z-Pattern) -->
-    <section id="features" class="py-24 bg-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6">
-            
-            <div class="text-center mb-24 max-w-3xl mx-auto">
-                <h2 class="text-4xl font-extrabold text-primary mb-6 tracking-tight">Smarter decisions at every step.</h2>
-                <p class="text-xl text-slate-600">Built on frontier language models, HomeTrust AI reads what you can't, so you never sign a bad deal again.</p>
-            </div>
-
-            <!-- Feature 1: Contracts -->
-            <div class="flex flex-col md:flex-row items-center gap-16 mb-24">
-                <div class="md:w-1/2 order-2 md:order-1">
-                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 text-secondary mb-6">
-                        <i class="fa-solid fa-file-signature text-2xl"></i>
-                    </div>
-                    <h3 class="text-3xl font-bold text-primary mb-5">Smart Contract Shield</h3>
-                    <p class="text-lg text-slate-600 leading-relaxed mb-6">
-                        Upload your 30-page rental or purchase agreement. Our AI engine instantly reads the fine print, highlights non-standard clauses, and flags predatory terms that shift unexpected liabilities onto you.
-                    </p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-slate-700 font-medium"><i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i> Identify hidden maintenance fees</li>
-                        <li class="flex items-center text-slate-700 font-medium"><i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i> Spot illegal eviction clauses</li>
-                        <li class="flex items-center text-slate-700 font-medium"><i class="fa-solid fa-circle-check text-emerald-500 mr-3"></i> Plain-English summaries of complex jargon</li>
-                    </ul>
-                </div>
-                <div class="md:w-1/2 order-1 md:order-2 w-full">
-                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Legal Contracts" class="rounded-3xl shadow-2xl object-cover aspect-[4/3]">
-                </div>
-            </div>
-
-            <!-- Feature 2: Renovation -->
-            <div class="flex flex-col md:flex-row items-center gap-16 mb-24">
-                <div class="md:w-1/2 w-full">
-                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Architectural Blueprints" class="rounded-3xl shadow-2xl object-cover aspect-[4/3]">
-                </div>
-                <div class="md:w-1/2">
-                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 mb-6">
-                        <i class="fa-solid fa-hammer text-2xl"></i>
-                    </div>
-                    <h3 class="text-3xl font-bold text-primary mb-5">Contractor Quote Reconciliation</h3>
-                    <p class="text-lg text-slate-600 leading-relaxed mb-6">
-                        Received messy, handwritten, or differently formatted quotes from three different contractors? Snap a photo. We extract the materials and labor, generating a standardized matrix that reveals who is truly offering the best value.
-                    </p>
-                    <a href="#waitlist" class="text-secondary font-semibold hover:text-blue-700 inline-flex items-center transition">
-                        See how it works <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Feature 3: Zoning -->
-            <div class="flex flex-col md:flex-row items-center gap-16">
-                <div class="md:w-1/2 order-2 md:order-1">
-                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-purple-50 text-purple-600 mb-6">
-                        <i class="fa-solid fa-map-location-dot text-2xl"></i>
-                    </div>
-                    <h3 class="text-3xl font-bold text-primary mb-5">Zoning & Compliance AI</h3>
-                    <p class="text-lg text-slate-600 leading-relaxed mb-6">
-                        Don't buy land blind. Upload local municipal zoning documents or land registry details. Get a clear, instant breakdown of maximum footprint, height restrictions, and usage rights before you invest your savings.
-                    </p>
-                </div>
-                <div class="md:w-1/2 order-1 md:order-2 w-full">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Modern City Zoning" class="rounded-3xl shadow-2xl object-cover aspect-[4/3]">
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Trust / Parent Company Section -->
-    <section id="about" class="bg-primary py-24 relative overflow-hidden">
-        <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-secondary rounded-full opacity-20 blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-emerald-500 rounded-full opacity-20 blur-3xl"></div>
+    <section class="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-32 flex flex-col lg:flex-row items-center gap-16">
         
-        <div class="max-w-5xl mx-auto px-6 relative z-10 text-center">
-            <i class="fa-solid fa-hard-hat text-5xl text-slate-400 mb-8"></i>
-            <h2 class="text-4xl font-extrabold text-white mb-8 tracking-tight">Backed by Real Industry Expertise.</h2>
-            <p class="text-xl text-slate-300 leading-relaxed mb-12 max-w-3xl mx-auto font-light">
-                HomeTrust AI isn't just another tech wrapper built in a dorm room. We are a direct consumer spin-off from <strong>Emir Mühendislik İnşaat</strong>, a verified engineering and construction firm in Türkiye. We combined decades of hard-earned field experience with frontier AI to build a product that solves real-world pain points.
+        <!-- Left: Copy -->
+        <div class="lg:w-1/2">
+            <div class="inline-flex items-center space-x-2 bg-surface border border-white/10 px-3 py-1 rounded-full text-xs font-semibold mb-8">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="text-slate-300">Intelligent Real Estate Auditing</span>
+            </div>
+            <h1 class="text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
+                Don't sign until <br>
+                <span class="text-gradient">AI clears it.</span>
+            </h1>
+            <p class="text-lg text-slate-400 mb-10 leading-relaxed max-w-lg">
+                The first enterprise-grade AI designed to protect consumers. We audit predatory rental agreements, reconcile deceptive renovation quotes, and decode zoning laws instantly.
             </p>
-            <a href="https://emirmuhendislikinsaat.com/" target="_blank" class="inline-flex items-center bg-white text-primary hover:bg-slate-100 font-bold px-8 py-4 rounded-xl transition shadow-xl">
-                Visit Emir Engineering <i class="fa-solid fa-arrow-up-right-from-square ml-3 text-sm opacity-70"></i>
-            </a>
+            
+            <div class="flex flex-col sm:flex-row gap-4">
+                <div class="relative flex-1 max-w-sm">
+                    <input type="email" placeholder="Enter your email" class="w-full bg-surface border border-white/10 text-white px-5 py-4 rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition placeholder-slate-500">
+                </div>
+                <button class="bg-primary hover:bg-blue-600 text-white font-semibold px-8 py-4 rounded-xl transition shadow-[0_0_20px_rgba(59,130,246,0.4)] whitespace-nowrap">
+                    Request Access
+                </button>
+            </div>
+        </div>
+
+        <!-- Right: Glassmorphism App Mockup -->
+        <div class="lg:w-1/2 relative w-full h-[500px]">
+            <!-- Fake App Window -->
+            <div class="absolute inset-0 glass-panel rounded-2xl shadow-2xl overflow-hidden flex flex-col animate-float">
+                <!-- App Header -->
+                <div class="h-12 bg-white/5 border-b border-white/10 flex items-center px-4 space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                    <div class="mx-auto text-xs font-mono text-slate-500">lease_agreement_v2.pdf</div>
+                </div>
+                <!-- App Body (Chat interface) -->
+                <div class="p-6 flex-1 flex flex-col gap-6">
+                    <!-- User Message -->
+                    <div class="flex justify-end">
+                        <div class="bg-primary/20 border border-primary/30 text-white text-sm px-4 py-3 rounded-2xl rounded-tr-sm max-w-[80%]">
+                            Can you audit this 34-page rental agreement? Is it safe to sign?
+                        </div>
+                    </div>
+                    <!-- AI Analyzing state -->
+                    <div class="flex items-center space-x-3 text-slate-400 text-xs font-mono mb-2">
+                        <i class="fa-solid fa-circle-notch fa-spin text-primary"></i>
+                        <span>Scanning 14,203 tokens across 34 pages...</span>
+                    </div>
+                    <!-- AI Response -->
+                    <div class="flex justify-start">
+                        <div class="bg-surface border border-white/10 text-slate-300 text-sm px-5 py-4 rounded-2xl rounded-tl-sm max-w-[90%] shadow-lg">
+                            <p class="mb-3 font-semibold text-white"><i class="fa-solid fa-triangle-exclamation text-amber-500 mr-2"></i> 2 Critical Flags Found</p>
+                            <div class="space-y-3">
+                                <div class="bg-red-500/10 border border-red-500/20 p-3 rounded-lg">
+                                    <span class="text-red-400 font-mono text-xs block mb-1">Clause 7.4 (Page 12)</span>
+                                    You are held liable for pre-existing structural roof damage. <strong>Recommendation:</strong> Request an amendment citing standard landlord liabilities.
+                                </div>
+                                <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-lg">
+                                    <span class="text-amber-400 font-mono text-xs block mb-1">Clause 11.2 (Page 19)</span>
+                                    The rent increase is pegged to an undefined "market rate" rather than strict CPI. This allows uncapped rent hikes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Data Widget -->
+            <div class="absolute -right-8 top-20 glass-panel p-4 rounded-xl shadow-xl animate-float-delayed border-l-4 border-l-primary hidden md:block">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                        <i class="fa-solid fa-file-shield text-primary"></i>
+                    </div>
+                    <div>
+                        <p class="text-white text-sm font-bold">14,203 Tokens</p>
+                        <p class="text-slate-400 text-xs font-mono">Processed in 1.4s</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof / Logos -->
+    <section class="relative z-10 border-y border-white/5 bg-surface/30 py-10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-sm text-slate-500 font-semibold uppercase tracking-widest mb-6">Built on frontier infrastructure</p>
+            <div class="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale">
+                <!-- Using text representations as logo placeholders -->
+                <span class="text-xl font-bold font-sans">stripe</span>
+                <span class="text-xl font-bold font-mono">Cloudflare</span>
+                <span class="text-xl font-bold font-serif italic">Emir Engineering</span>
+                <span class="text-xl font-bold font-sans tracking-tight">Anthropic</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bento Box Features Section -->
+    <section id="platform" class="relative z-10 max-w-7xl mx-auto px-6 py-32">
+        <div class="mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">Intelligence at scale.</h2>
+            <p class="text-slate-400 text-lg">We transformed massive linguistic and architectural complexity into three powerful tools.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Bento Card 1: Wide (Contracts) -->
+            <div class="bento-card col-span-1 md:col-span-2 rounded-3xl p-8 md:p-12 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px] group-hover:bg-primary/20 transition duration-500"></div>
+                <div class="relative z-10">
+                    <div class="w-14 h-14 rounded-2xl bg-surface border border-white/10 flex items-center justify-center mb-8">
+                        <i class="fa-solid fa-file-contract text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Legal Shield AI</h3>
+                    <p class="text-slate-400 leading-relaxed max-w-md mb-8">
+                        Our engine ingests raw, unstructured legal PDFs. It cross-references clauses against local tenant laws and flags high-risk financial obligations before your pen touches paper.
+                    </p>
+                    <div class="font-mono text-xs text-primary bg-primary/10 inline-block px-3 py-1.5 rounded-lg border border-primary/20">
+                        Capability: 200K Context Window
+                    </div>
+                </div>
+                <!-- Abstract document visual -->
+                <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-surfaceLight border border-white/10 rounded-2xl transform rotate-12 shadow-2xl opacity-50 p-6 flex flex-col gap-3 pointer-events-none">
+                    <div class="w-full h-3 bg-slate-600 rounded"></div>
+                    <div class="w-3/4 h-3 bg-slate-600 rounded"></div>
+                    <div class="w-full h-3 bg-red-500/50 rounded"></div>
+                    <div class="w-5/6 h-3 bg-slate-600 rounded"></div>
+                </div>
+            </div>
+
+            <!-- Bento Card 2: Square (Zoning) -->
+            <div class="bento-card col-span-1 rounded-3xl p-8 relative overflow-hidden group">
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-emerald-500/10 rounded-full blur-[60px] group-hover:bg-emerald-500/20 transition duration-500"></div>
+                <div class="relative z-10">
+                    <div class="w-12 h-12 rounded-xl bg-surface border border-white/10 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-map-location-dot text-emerald-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Zoning Decoder</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Upload municipal land registry documents. We extract exact footprint, height limits, and usage restrictions into plain English.
+                    </p>
+                    <div class="w-full h-24 bg-surface/50 border border-white/5 rounded-xl mt-auto relative overflow-hidden flex items-center justify-center">
+                        <i class="fa-solid fa-location-dot text-3xl text-emerald-500/50"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bento Card 3: Square (Vision/Quotes) -->
+            <div class="bento-card col-span-1 rounded-3xl p-8 relative overflow-hidden group">
+                <div class="relative z-10">
+                    <div class="w-12 h-12 rounded-xl bg-surface border border-white/10 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-eye text-amber-400 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Vision Reconciliation</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Snap photos of handwritten contractor quotes. Our multimodal vision AI extracts materials, standardizes pricing, and builds a comparison matrix.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bento Card 4: Wide (Parent Company Trust) -->
+            <div id="engineering" class="bento-card col-span-1 md:col-span-2 rounded-3xl p-8 relative overflow-hidden flex flex-col justify-center items-center text-center">
+                <i class="fa-solid fa-hard-hat text-4xl text-slate-500 mb-4"></i>
+                <h3 class="text-xl font-bold text-white mb-2">Backed by Emir Engineering</h3>
+                <p class="text-slate-400 text-sm max-w-lg mb-6">
+                    Unlike standard tech wrappers, HomeTrust AI is built by verified construction industry veterans from Türkiye, ensuring our AI solves real-world physical problems.
+                </p>
+                <a href="https://emirmuhendislikinsaat.com/" target="_blank" class="text-sm font-semibold text-white hover:text-primary transition underline decoration-white/30 underline-offset-4">
+                    Verify our credentials
+                </a>
+            </div>
+
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
+    <footer class="relative z-10 border-t border-white/10 bg-background pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-12 border-b border-slate-100 pb-12">
-                <div class="flex items-center space-x-2 mb-6 md:mb-0">
-                    <i class="fa-solid fa-building-shield text-slate-300 text-3xl"></i>
-                    <span class="text-2xl font-bold text-primary tracking-tight">HomeTrust <span class="text-slate-300">AI</span></span>
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0 opacity-50 hover:opacity-100 transition">
+                    <i class="fa-solid fa-building-shield text-white text-xl"></i>
+                    <span class="text-lg font-bold text-white tracking-tight">HomeTrust AI</span>
                 </div>
-                <div class="flex space-x-6 text-slate-400">
-                    <a href="#" class="hover:text-primary transition"><i class="fa-brands fa-twitter text-xl"></i></a>
-                    <a href="#" class="hover:text-primary transition"><i class="fa-brands fa-linkedin text-xl"></i></a>
-                    <a href="#" class="hover:text-primary transition"><i class="fa-solid fa-envelope text-xl"></i></a>
+                <div class="flex space-x-6 text-slate-500 text-sm">
+                    <a href="#" class="hover:text-white transition">Privacy</a>
+                    <a href="#" class="hover:text-white transition">Terms</a>
+                    <a href="#" class="hover:text-white transition">Contact</a>
                 </div>
             </div>
-            <div class="flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm font-medium">
-                <p>&copy; 2026 HomeTrust AI. A product of Emir Mühendislik İnşaat.</p>
-                <div class="space-x-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-primary">Privacy Policy</a>
-                    <a href="#" class="hover:text-primary">Terms of Service</a>
-                </div>
+            <div class="text-center md:text-left text-slate-600 text-xs">
+                &copy; 2026 HomeTrust AI. A subsidiary of Emir Mühendislik İnşaat.
             </div>
         </div>
     </footer>
